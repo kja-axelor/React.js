@@ -1,0 +1,57 @@
+*** Lists ***
+we can build collection of elements and include them in JSX using curly braces {}.
+ 
+*** Iteration using map method ****
+
+map(callback(currentvalue,index,array),thisArg);
+ex.
+map((num,index)=>{
+    return num;
+})
+
+// const arr = [10,20,30,40];
+
+// using Array map method
+const newArr = arr.map( num  =>  <li> {num * 2} </li> )
+
+
+****** Embading map in jsx *******
+whenever we want to write javascript inside JSX we need to put {}
+
+
+*** how to use props with map method ***
+same as we pass atrribute we pass its value as array in curly braces.
+
+**** states with map ***
+state is basically object. if we have any array as a value then we use map method in them.
+
+
+***** Key *******
+A Key is a special atrribute you need to include when you are creating list of elements.
+key helps react identifying which items have changed, updated,removed.
+key should be given to elements inside the array to give the element a stable identity.
+the best key is a string value.
+
+keys should be unique in one array and its sibling
+it might be same in two different array and its sibling that is ok.
+
+if you need the same value (keys value) as props then you need to give differ name to that props and pass it explicitly.
+
+
+ex.
+const arr = [10,20,30];
+
+const newArr = arr.map((num)=>{
+    return <li key={num}>{num * 2}
+    </li>
+})
+
+// index value as a key value is not recommanding
+const newArr = arr.map((num,index)=>{
+    return <li key={index}>{num * 2}
+    </li>
+})
+
+
+basically key is written when we are rendering map function.
+key is not passed as props in component.

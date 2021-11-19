@@ -1,0 +1,74 @@
+custom hooks
+A custom hooks is a javascript function, when we have to share a logic between two javascript functions, we extract it to a third function.
+
+You can write custom hooks that cover a wide handling range of use cases like i.e. form handling,
+animation,timers etc..
+
+*** create custom hooks ***
+custom hooks is a javascript function which name starts with a "use"
+that may call many other hooks.
+ex. 
+function useSomething(){
+    return();
+}
+
+
+******* Condition Rendering *******
+
+Condition Rendering works same as the way work in javascript.
+
+use js operator like if or the condional (ternary) operator to create element representing the 
+currnet state, the let React update the UI to match them.
+
+if & if-else stmt dont work inside jsx.this is because jsx is just syntacic sugar for function calls and object construction.
+
+i.e. <div id={if(condition){'msg'}}>hello</div> error
+React.createElement("div",{id:if(condition){'msg'}},"hello"); // babel will convert this by React.createElement // error
+
+***** inline if with logical && operator ****
+syntax :: {variable && component}
+
+you may embed any expression in jsx by wrapping them in curly braces.
+this inclues the js logical && .
+
+
+TRUE + expression = expression
+ex. purchase && <payment /> 
+if purchase is evaluted true then payment componnet will render.
+
+FALSE + expression = FALSE
+purchase && <payment /> 
+if purchase is evaluted false then give false, component will ignore.
+
+
+****** Inline if-else with conditional operator *****
+
+syntax condition1 ? Ans 1 : Ans 2;
+
+
+***** IIFE ****
+IIFE is a function which called itself while defining it.
+we use this 
+
+return (
+
+    <div>
+        {
+            // IIFE starts (Arrow function with wrap by braces and call itself)
+
+            ( 
+                () => {
+
+                    // Any javascript code
+                    switch, if else, ternary 
+                    
+                }
+            ) ()
+
+
+
+
+
+        }
+    </div>
+)

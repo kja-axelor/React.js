@@ -1,0 +1,141 @@
+*** state ***
+
+state is similar to props 
+but it is controlled by componets and it is private
+state is used only in class componets
+state can be editable if we want while props should not be modifyable
+props are only readonly
+
+2 ways to declare state
+Directly in the class(without constructor)
+inside the constructor(with constructor)
+
+state property is referred as state and it is a class instance property
+state can be accessable within only in particular class 
+we can not accessable state outside the class
+
+
+Inside constructor
+constructor method is called at first place
+when we write a constructor, we have to use call the parent class constructor
+with super keyword
+super(props),, it will available for all
+
+
+event --> the action to which js will respond 
+ex. click,submit,scroll,hover
+ 
+handling event are similar as DOM
+
+1) event name follows camelcase
+2) jsx you pass a function
+
+You can not return false to prevent defalut behaviour
+means return false thi defalut behaviour prevent no thay
+
+ex. you have to call preventDefalut()
+
+state updation
+we have to use setState property
+1) setState(Object)
+2) setState(function)
+
+
+Giving arguments to Event Handler
+we use arrow function or we can also use anonymous arrow function
+
+Phase of componets
+1) Mounting-- creating element and inserting in DOM tree
+2) Updating -- changes states and props
+3) Error handling -- error occurs
+4) unmounting -- removing componets from DOM
+
+virtual DOM to Actual DOM --Mounting
+changes detact and then Actual DOM --Updating
+error -- Error handling
+unmounting -- remove element from DOM
+
+
+****** lifecycle Method ******(It is used in class based component only)
+In the following order all this methods are called.
+Mounting -- constructor,static getDerivedStateFromProps,render(also child component render),componenetDidMount(inserted in dom it is called)
+
+updating -- static getDerivedStateFromProps,shouldComponetUpdate,render,getSnapshotBeforeUpdate,componentDidUpdate
+
+unmounting -- componentWillUnmount
+
+1) Mounting 
+
+constructor 
+    You have to call firstly super(props)
+    or else this.props will undefined
+constructor are used for 2 ways
+1) state intializing  this.state = {name:'krjani'}
+2) binding event handler method 
+    ex. this.handleClick = this.handleClick.bind(this);
+
+2) Updating
+
+1) static getDerivedStateFromProps(nextProps,nextState)
+2) shouldcomponetupdate() -- props and state change thay tyare component reRender thay --yes nd if you dont want to reRender --no is value for the shouldcomponentupdate();
+3) render()
+4) getsnapshotbeforeupdate();-- called before dom is updated
+5) componentdidupdate(prevProp,prevState,getsnapshotbeforupdate())
+
+
+3))) unmounting --  Removing component from dom is called as unmounting
+    componentWillUnmount() is immediately called before component is unmounted or destroyed
+
+*** Hooks ***
+hooks is a function
+function componet ma pan use lifecycle method use kari sako
+ex. useState , useEffect
+hooks allows state and lifecycle method in function based component
+
+*** Rules of hooks ***
+
+1) only call hooks at top level
+
+2) inside loops, condition, nested function we should not call hooks
+
+3) only call hooks from react function not from javascript function
+
+4) order in hooks matters 
+
+5) hooks dont work inside classes
+
+
+
+*** useState Hook ***
+
+Declaring State
+useState 
+--> we can create state in function component
+--> we call inside react function to add some local state to in it
+
+useState() return a pair 
+ 1) current state value
+ 2) function let you update
+
+useState() will be called at event handlers or anywhere
+
+const val = useState(); // val is an array which returns two value 
+const [currentState, function] =   useState(); //Array destructuring
+or const currentState = val[0];
+or const function = val[1];
+
+we can call useState() many times.
+
+ex..
+function A(){
+    const val = useState("krjani");
+    const val = useState(123);
+    const val = useState({sub:"Maths"});
+}
+
+*** Accessing state ***
+we can use state variable name directly without this keyword
+
+*** updating state ***
+functionName("new Value"); //we have to call returned function in useState()
+

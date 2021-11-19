@@ -1,0 +1,20 @@
+effect hooks
+effect hooks is used to perform side effectc in functional component.ex. Data fetching ,API CALL
+
+useEffect() is used as hooks
+useEffect is like combination of all lifecycle method.
+
+useEffect(function, Array) --> array is optional
+function will run after the render function is committed to the screen.
+Array will execute according to conditon.
+you can also use arrow function as function.
+
+*** what does useEffect will do?  ***
+
+by using this hook, you will tell React that your component needs to do something after render.
+we can set the document title, fetch api and data fetching
+
+
+*** why is useEffect called inside a component ***
+placing useEffect inside the component lets us access the state variable or any props right from the effect.
+useEffect is run after the first and after the every update.

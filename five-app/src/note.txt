@@ -1,0 +1,255 @@
+4 ways to include css in React app
+
+inline
+external
+css module
+css in js
+
+**** inline ****
+style attribute helps to write css.
+style attribute accepts the js object with camelcase properties rather than css string.
+
+css class are better than inline stylesheet.
+
+ex. const btnstyle = {
+    color:"blue",
+    backgroundColor:"Red"
+};
+
+use...
+<button style={btnstyle}></button>
+
+Note:scope of inline stylesheet will be in same component only.
+
+we have to use spredOperator for giving more than style object to single elemenent.
+using spredOperator we can also define new css object too.
+
+we can't use pseudo class in inline css. for that we have to use external css.
+
+
+**** external stylesheet ***
+App.css
+.txt{
+    color: red;
+}
+
+App.js
+import './App.css'  // this will tell webpack that App.js will be using styles of App.css.
+<h1 className="txt"> Hello </h1> // className is camelcase.
+
+Note: you have to import it with its filename and extention. Anything you use (exclude js) you have to give its extention.
+
+when you are using external css ALL CSS FILE SHOULD UNIQUE CLASSNAME.
+external css have global scope. so it might be lead towards name conflict in css className.
+
+
+**** How to Render conditional css ****
+
+*** How to write multiple className ***
+className="className1, className2 "
+
+
+***** CSS module in styling react component ***
+inline --> no pseudo class 
+external --> name conflict
+
+css module ::
+css module will remove the error of name conflict. using that you can use same css className without worrying about naming clashes.
+css files in which all class name and animation names are scoped locally by default.
+
+css modules allows the scoping of CSS by automatically creating a unique classname of the format
+[FILE-NAME]\_[CLASSNAME]\_\_[HASH]
+
+syntax. 
+[name].module.css
+
+ex.. 
+App.module.css
+
+import styles from "./App.module.css"
+i.e. here styles is object.
+
+<h1 className={styles.txtblue}>Hello</h1>
+
+
+*** Importing css module and regular module ***
+import stmt is always unique. so there should be no name conflicting.
+
+*** CSS in javascript ***
+CSS in JS is a concept of third parties library not a React.
+ex. radium, emotion,styled component, Glamorous.
+
+
+****** Images / Assets in React.js ******
+images,pdf,doc,ppt are accessed in same way as image.
+
+Two places
+1) Public folder
+2) Src folder
+
+1) Public folder
+if you put file into public folder, it will not be proccessed by webpack. Instead it will be copied  into build folder untouched.
+
+To refrence assets in the public folder, you need to use a special variable called PUBLIC_URL.
+
+only files inside the public folder will be accessible by %PUBLIC_URL%
+Normally we put it from src folder.
+
+None of the files in public folder will get post proccessed or minified.
+missing files will not be called at compilation time and case 404 error on web.
+
+when to use public folder??
+you need a file with a specific name in the build folder like manifest.webmanifest.
+you have thousands of images and need to be dynamically refrence their paths.
+
+How to access the files inside the public folder
+
+public 
+img/pic.jpg 
+index.html --> <img src="%PUBLIC_URL%/img/pic.jpg%">
+
+App.js
+<img src={process.env.PUbLIC_URL + "/pic.jpg"}>
+<img src={process.env.PUbLIC_URL + "/img/pic.jpg"}>
+
+Src
+with webpack, using static assets like images and font works similary to css.
+you have to import that file in js.
+scripts and stylesheet get minified.
+missing files cause compilation error without generating 404 errors to others.
+
+
+How to use?/
+src
+img/pic.jpg
+
+App.js
+import pic from './pic.jpg'
+pic is object.
+<img src={pic} alt="my pic">
+
+Note: assets will automatically static/media/hash by webpack.
+
+
+****** How to use Bootstrap in React.js *****
+1) CDN link (need Active Internet connection)
+2) webpack through Bootstrap package install ::
+in second case you have to install Bootstrap module and then import Bootstrap file in index.js
+then you can use it in module.js files.
+
+
+***** form in React.js *****
+html form element works differently in react because form elements naturally keep some internal state.
+
+In html form elements like <input>,<textarea>,<select> typically maintain their own state and update it based on user input.
+in react, mutable (changable) state is typically kept in state property of components and only updated using setState property.
+
+IMP in React forms 
+1) Controlled component i.e. input type="text" means data have only text values.
+2) Uncontrolled component i.e it can't controll the html form.
+
+
+***** Controlled component *****
+Form has a default behaviour of browsing to a new page when the user submits the form.
+If you want to same behaviour in React you can do that also it works.
+
+But in most cases, It is convenient to have a javascript function that handles the submission of the form and has access to the data that the user entered in the form. The standard way to do this is Controlled component.
+
+In a Controlled component form data is Controlled by react component.
+
+**** when to use controlled component ****
+You need to write an event handler for every way your data can change, and pipe all of the input state through React component.
+
+
+***** Uncontrolled component *****
+in controlled component form data is handled by a react component.
+the alternative is Uncontrolled component, where form data is handled by the DOM itself.
+
+to write an Uncontrolled component, Instead of writing an event handler for every state update, you can use a "ref" to get values from the DOM.
+
+*** When to use Uncontrolled component *****
+you do not need to write an event handler for every way your data can change and pipe all of the input through a React component.
+
+ex. Converting a preexisting codebase to react, integrating a React application with a non React library.
+
+*** Controlled component ****
+if you give any attribute to input tag you have to handle that field by event. or else that field will be readonly field.
+
+we have to handle input values by event onchange.
+
+*** How to handle multiple field of input forms ***
+for doing this you have to identify which field has which input tag.
+so use input tag attribute name for identify that field.
+
+
+***** Handling form in React.js ******
+submitting forms and all that things
+
+
+*** Uncontrolled component (refs) ******
+
+Refs provide a way to access DOM nodes or React element created in the render method.
+
+*** When to use refs *******
+Managing focus, text selection, or media playback.
+integrating third parties library.
+Triggering imperative animation.
+
+**** Creating refs *****
+Refs are created using "React.createRef()" and attached to React elemenent via the "ref" attribute. 
+
+we create ref inside constructor
+1). create ref to store the DOM element
+ex. this.myRef = React.createRef();
+
+2) Attaching created ref to react element
+ex. render(){
+    return <div ref={this.myRef} />;
+}
+
+**** Access refs *****
+when ref is passed to an element in render, A refrence to the node becomes accessible at the current attribute of the ref. 
+
+const node = this.myRef.current;
+
+React will assign the "current" property with the DOM element when the component mounts, set back to it "null" when unmount.
+
+the value of refs differs depending upon the type of node.
+
+1) when the ref attribute is used on html element, the ref created in the constructor with React.createRef() receives the underlaying DOM element as its current property.
+2) when the ref attribute is used on custom class component, the ref object receives the mounted instance of the component as its current.
+3) you may not use ref in function component because they dont have instance.
+
+
+**** Callback refs *****
+React also supports another way to set refs called "Callback refs", which gives more fine-gain controll over  when refs are set and unset.
+
+Instead of passing a ref attribute created by React.createRef(), you pass a function.
+The function receives the React component instance or HTMl DOM element as its arguments, which can be stored and accessed anywhere.
+
+here we dont use current property we pass that dom element as argument.
+
+
+****** Lifting state Up ******
+
+App.js              User.js         Guest.js
+                     ^   ^          ^   ^ 
+                     |   |          |   |
+      
+                    PROPS  
+state      -- --    --  --  --  --  --  --  
+
+i.e. APP is a parent component and If User.js want to access that state value which is in app.js we have to pass parent state value as a props.
+
+
+***** Context API ****
+we can directly pass one component state to another component state.
+
+3 steps we use contex API
+
+1) initial state to React.createContext. this function then returns an object with a provider and consumer.
+2) using provider component at the top of the tree and making it accept a prop called values.This value can be anything.(data put)
+3) using the Consumer component anywhere below the Provider in the component tree to get a subset of the state.(data use/consume)
+
+***** Create Context ***
+ex. const myContext = React.createContext(defaultValue)
