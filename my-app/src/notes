@@ -91,7 +91,7 @@ hooks is a function
 function componet ma pan use lifecycle method use kari sako
 ex. useState , useEffect
 hooks allows state and lifecycle method in function based component
-
+ 
 *** Rules of hooks ***
 
 1) only call hooks at top level

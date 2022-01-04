@@ -8,6 +8,7 @@ export default class App extends Component {
     this.setState({change:true})
   }
   render() {
+    // we can declare all css property in once or seperately also define.
     const btnStyle = {
       color:"blue",
       backgroundColor:"orange"
@@ -24,7 +25,7 @@ export default class App extends Component {
     return(
     <div>
          <h1>hello</h1>
-          <button type="button" onClick={this.btnclk} style={{...backColor,...textColor,...{border:"5px dotted black"}}}>Click me</button>
+          <button type="button" onClick={this.btnclk} style={{...backColor,...textColor,...{border:"5px dotted black",padding:"10px"}}}>Click me</button>
     </div>
     )
   }

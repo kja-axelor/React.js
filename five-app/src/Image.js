@@ -7,7 +7,7 @@ export default class Image extends Component {
             <React.Fragment>
                 <h1>hello IMG</h1>
                 {/* assets in public folder */}
-                {/* <img src={process.env.PUBLIC_URL + "images/krjani.jpg"} alt="krjani's picture" width="300px" /> */}
+                <img src={process.env.PUBLIC_URL + "images/krjani.jpg"} alt="krjani's picture" width="300px" />
                 
                 {/* assets in src folder */}
                 <img src={krjani} alt="krjani's picture" width="300px" />

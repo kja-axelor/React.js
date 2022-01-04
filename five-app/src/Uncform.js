@@ -9,13 +9,13 @@ export default class Uncform extends Component {
     // creating ref
     this.textInput = React.createRef();
   }
-//   componentDidMount() {
-//     //   console.log(this.textInput.current);
-//     this.textInput.current.focus();
-//   }
+  componentDidMount() {
+    console.log(this.textInput.current);
+    this.textInput.current.focus();
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.textInput.current.value);
+    console.log(this.textInput.current.value);
     this.setState({value:this.textInput.current.value})
   } 
   render() {

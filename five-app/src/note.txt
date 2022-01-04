@@ -109,8 +109,8 @@ img/pic.jpg
 index.html --> <img src="%PUBLIC_URL%/img/pic.jpg%">
 
 App.js
-<img src={process.env.PUbLIC_URL + "/pic.jpg"}>
-<img src={process.env.PUbLIC_URL + "/img/pic.jpg"}>
+<img src={process.env.PUBLIC_URL + "/pic.jpg"}>
+<img src={process.env.PUBLIC_URL + "/img/pic.jpg"}>
 
 Src
 with webpack, using static assets like images and font works similary to css.

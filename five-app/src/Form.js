@@ -19,8 +19,8 @@ export default class form extends Component {
             <div>
                 <form action="">
                     <h1>Controlled by React</h1>
-                    <input type="text" value={this.state.value} onChange={this.handletxt}  name="name"/><br /><br />
-                    <textarea value={this.state.text} onChange={this.handlearea} cols="50" rows="10"></textarea>
+                    Name: <input type="text" value={this.state.value} onChange={this.handletxt}  name="name"/><br /><br />
+                    Intro: <textarea value={this.state.text} onChange={this.handlearea} cols="50" rows="10"></textarea>
                 </form>
             </div>
         )

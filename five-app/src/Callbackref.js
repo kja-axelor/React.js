@@ -17,13 +17,15 @@ export default class Callbackref extends Component {
     
     render() {
         return (
-            <form action="">
-                Name: <input type="text"  ref={this.setBackRef}/>
-                <br /><br />
-                password: <input type="text" />
-                <br /><br />
-                <input type="submit" value="Submit" />
-            </form>
-        )
+          <form action="">
+            Name: <input type="text" ref={this.setBackRef} />
+            <br />
+            <br />
+            password: <input type="text" />
+            <br />
+            <br />
+            <input type="submit" value="Submit" />
+          </form>
+        );
     }
 }
