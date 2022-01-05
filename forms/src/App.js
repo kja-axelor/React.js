@@ -8,30 +8,25 @@ export default class App extends Component {
     server:"Choose a webserver",
     role:"",
     activity:"",
-    errorMessage:""
+    errorMessage:"",
+    isSubmit:false
   }
-    nameHandler = (event)=>{
-      this.setState({"name":event.target.value})
-    }
-    passHandler = (event)=>{
-      this.setState({"password":event.target.value})
-    }
-    cityHandler = (event)=>{
-      this.setState({"city":event.target.value})
-    }
-    serverHandler = (event)=>{
-      this.setState({"server":event.target.value});
-    }
-    roleHandler = (event) =>{
-      this.setState({"role":event.target.value})
+    inputHandler = (event) => {
+      this.setState({
+        [event.target.name]: event.target.value
+      })
     }
     resetHandler = () =>{
       this.setState({"name":"","password":"","city":"","errorMessage":""})
     }
     submitHandler = (event) =>{
       event.preventDefault();
+      this.isSubmit = true;
       const err = this.validate(this.state);
-      this.setState({"errorMessage":err})
+      this.setState({"errorMessage":err});
+       if(Object.keys(err).length === 0 && this.isSubmit){
+            console.log("form is validated");
+        }
     }
 
     validate = (values)=>{
@@ -63,38 +58,43 @@ export default class App extends Component {
     }
   render() {
     return (
-      <div>
-        <form action="" onSubmit={this.submitHandler}>
+      <div className='content'>
           <h1>Myform</h1>
+        <form action="" onSubmit={this.submitHandler}>
 
-          <div className="inputfield">
-            <label>
+          <div className='row'>
+            <label className='label'>
             <br />
-            Username:  <input type="text" value={this.state.name} name="username" onChange={this.nameHandler}/>  <small className="error">{this.state.errorMessage.name}</small>
+            Username:  
+            <input type="text" value={this.state.name}  className='input' name="name" onChange={this.inputHandler}/>  
+            <small className="error">{this.state.errorMessage.name}</small>
           </label><br /><br />
           </div>
 
-          <div className="inputfield">
+          <div className='row'>
+            <label className='label'>
+            Password:  <input type="text" value={this.state.password} className='input' name="password" onChange={this.inputHandler}/>   <small className="error">{this.state.errorMessage.password}</small>
+          </label><br /><br />
+          </div>
+
+          <div className='row'>
+             <label className='label'>
+            City of Employment:  <input type="text" value={this.state.city} className='input' name="city" onChange={this.inputHandler}/>  <small className="error">{this.state.errorMessage.city}</small>
+          </label><br /><br />
+          </div>
+
+          <div className='row'>
             <label>
-            Password:  <input type="text" value={this.state.password} name="password" onChange={this.passHandler}/>   <small className="error">{this.state.errorMessage.password}</small>
-          </label><br /><br />
-          </div>
-
-          <div>
-             <label>
-            City of Employment:  <input type="text" value={this.state.city} name="city" onChange={this.cityHandler}/>  <small className="error">{this.state.errorMessage.city}</small>
-          </label><br /><br />
-          </div>
-
-          <label>
-            Webserver:  <select name="server" value={this.state.server} onChange={this.serverHandler}>
+            Webserver:  <select name="server" value={this.state.server} onChange={this.inputHandler}>
               <option value="webserver">Choose a webserver</option>
               <option value="apache">Apache</option>
               <option value="tomcat">Tomcat</option>
             </select>
           </label> <br /><br />
+          </div>
 
-          <label htmlFor="role" onChange={this.roleHandler}>Please specify your role:
+          <div className='row'>
+            <label htmlFor="role" className='label' onChange={this.inputHandler}>Please specify your role:
             <div>
             <input type="radio" name="role" id="admin" value="Admin"/>
             <label htmlFor="admin">Admin</label><br></br>
@@ -109,8 +109,10 @@ export default class App extends Component {
             
             </div>
           </label> <br /><br />
+          </div>
 
-          <label htmlFor="activity" onChange={this.activityHandler}>Single Sign-on to the following activity
+          <div className='row'>
+              <label htmlFor="activity" onChange={this.activityHandler}>Single Sign-on to the following activity
           <div>
             <input type="checkbox" name="mail" id="mail" />
             <label htmlFor="mail">Mail</label><br />
@@ -120,6 +122,7 @@ export default class App extends Component {
             <label htmlFor="service">Self-service</label><br />
           </div>
           </label>
+          </div>
 
           <button type="submit">Login</button> <button type="reset" onClick={this.resetHandler}>Reset</button>
         </form>
