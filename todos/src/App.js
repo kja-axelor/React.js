@@ -42,7 +42,7 @@ function App() {
     // filter according id
     const newItems = oldItems.filter((value,index)=> index !== id);
     const editItem = oldItems.find((value,index)=> index === id);
-    settextInput({["items"]:newItems,"text":editItem});
+    settextInput({["items"]:oldItems,"text":editItem});
   }
   return (
     <div className="container-fluid my-5">
