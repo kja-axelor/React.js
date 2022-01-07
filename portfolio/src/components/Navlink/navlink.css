@@ -1,0 +1,16 @@
+.links {
+  display: flex;
+  font-size: 18pt;
+}
+.links li a {
+  list-style: none;
+  margin: 20px;
+  color: whitesmoke;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+}
+ul li {
+  list-style: none;
+  margin: 15px;
+}
