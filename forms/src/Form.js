@@ -10,6 +10,7 @@ export default class Form extends Component {
     activity: "",
     errorMessage: "",
     isSubmit: false,
+    isValid: false
   };
   inputHandler = (event) => {
     this.setState({
@@ -17,7 +18,8 @@ export default class Form extends Component {
     });
   };
   resetHandler = () => {
-    this.setState({ name: "", password: "", city: "", errorMessage: "" });
+    this.setState({ name: "", password: "", city: "", errorMessage: ""});
+    this.isValid = false;
   };
   submitHandler = (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ export default class Form extends Component {
     const err = this.validate(this.state);
     this.setState({ errorMessage: err });
     if (Object.keys(err).length === 0 && this.isSubmit) {
-      console.log("form is validated");
+      this.isValid = true;
     }
   };
 
@@ -56,6 +58,7 @@ export default class Form extends Component {
   render() {
     return (
       <div className="content">
+        {this.isValid? <h3>Form is validated</h3> :""}
         <h1>Myform</h1>
         <form action="" onSubmit={this.submitHandler}>
           <div className="row">
