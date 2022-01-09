@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './header.css'
 import Navlink from "../Navlink/Navlink";
 export default function Header ()
@@ -8,9 +8,9 @@ export default function Header ()
       <div className="header">
         <h2> <a href="/" className="name" > Kishan R. Jani </a> </h2>
         <ul className='links'>
-        {
-            <Navlink links={links}/>
-        }
+          {
+            links.map(link => <Navlink link={link} />)
+          }
         </ul>
       </div>
     );

@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
+import "./navlink.css";
 
 export default function Navlink(props){
     return (
-                <a href="/">{props.links}</a>
+        <li>
+            <a href="/">{props.link}</a>
+        </li>
     )
 }

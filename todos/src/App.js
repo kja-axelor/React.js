@@ -2,13 +2,14 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Plan from "./Plan";
 import { useState } from "react";
+import { v4 as uuidv4} from 'uuid';
 
 function App() {
   // const [itemList, setItemList] = useState([]);
   // const [item, setItem] = useState({text: '', id: itemList.length + 1, editItem:false});
 
   //declare state
-  const [textInput, settextInput] = useState({text:"",items:[],editItem:false,id:Date.now()});
+  const [textInput, settextInput] = useState({text:"",items:[],editItem:false,id:""});
   // const [id,setId] = useState([textInput.items.length]);
 
   //handle change event
@@ -34,11 +35,12 @@ function App() {
 
     if(textInput.text !== ""){
       // assing id to newly created item 
-      const id = textInput.id;
+      const id = Date.now();
       // Add text into userInput
-      const item = [...textInput.items,textInput.text];
+      
+      const item = [...textInput.items];
       // set state
-      settextInput({["items"]:item,["text"]:"",id:Date.now()});
+      settextInput({["items"]:item,["text"]:""});
     }
   }
 
