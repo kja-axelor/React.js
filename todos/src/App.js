@@ -2,15 +2,16 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Plan from "./Plan";
 import { useState } from "react";
-import { v4 as uuidv4} from 'uuid';
+import { click } from '@testing-library/user-event/dist/click';
 
 function App() {
   // const [itemList, setItemList] = useState([]);
   // const [item, setItem] = useState({text: '', id: itemList.length + 1, editItem:false});
 
   //declare state
-  const [textInput, settextInput] = useState({text:"",items:[],editItem:false,id:""});
+  const [textInput, settextInput] = useState({text:"",items:[],editItem:false,id:Date.now()});
   // const [id,setId] = useState([textInput.items.length]);
+  const[isEditItem,setIsEditItem] = useState(null);
 
   //handle change event
   const changeHandler = (event)=>{
@@ -33,15 +34,34 @@ function App() {
     //   return items;
     // })
 
-    if(textInput.text !== ""){
+    if(textInput.text !== "") {
+        if(!textInput.editItem)
+        {
+          const id = textInput.id;
+          const item = [...textInput.items,{id:id,text:textInput.text}];
+          settextInput({["items"]:item,["text"]:"",["id"]:Date.now()}); 
+        }
+        else{
+          const id = isEditItem;
+          const item = [...textInput.items,{id:id,text:textInput.text}];
+          settextInput({ ["items"]: item, ["text"]: "", ["id"]: Date.now()}); 
+        }
+      // else{
+      //   settextInput(
+      //     textInput.items.map((item)=>{
+      //       if(item.id === isEditItem)
+      //       {
+      //         return {...item, text:textInput.text,id:isEditItem}
+      //       }
+      //       return item;
+      //     })
+      //   )
+      // }
+      }
       // assing id to newly created item 
-      const id = Date.now();
+       
       // Add text into userInput
-      
-      const item = [...textInput.items];
       // set state
-      settextInput({["items"]:item,["text"]:""});
-    }
   }
 
   // delete Handler
@@ -49,13 +69,10 @@ function App() {
     const oldItems = [...textInput.items];
     // filter acording id
     // filter(value,index,array)
-    const newItems = oldItems.filter((values,index) =>  
-    {
-      return values.id !== id
-    });
+    const newItems = oldItems.filter(values => values.id !== id);
 
     // set state 
-    settextInput({["items"]:newItems,"text":"","id":Date.now()});
+    settextInput({["items"]:newItems,"text":""});
   }
   
   //Edit handler
@@ -63,9 +80,10 @@ function App() {
     console.log("editing is done here",id);
     const oldItems = [...textInput.items];
     // filter according id
-    const newItems = oldItems.filter((value,index)=> index !== id);
-    const editItem = oldItems.find((value,index)=> index === id);
-    settextInput({["items"]:oldItems,"text":editItem,"editItem":true});
+    const newItems = oldItems.filter(value => value.id !== id);
+    const editItem = oldItems.find(value => value.id === id);
+    setIsEditItem(id)
+    settextInput({["items"]:newItems,"text":editItem.text,"editItem":true,"id":id});
   }
   return (
     <div className="container-fluid my-5">
@@ -110,10 +128,10 @@ function App() {
                   {textInput.items.map((value, index) => {
                     return (
                       <Plan
-                        value={value}
+                        value={value.text}
                         key={index}
                         num={index}
-                        id ={index}
+                        id ={value.id}
                         delHandler={delHandler}
                         editHandler={editHandler}
                       />
