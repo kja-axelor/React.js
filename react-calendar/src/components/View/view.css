@@ -12,3 +12,27 @@ table{
     width: 50%;
     margin: auto;
 }
+.disable{
+    color:grey;
+    font-weight: lighter;
+}
+.today{
+    background-color:gray;
+    color: whitesmoke;
+}
+
+.friday{
+    color:green;
+}
+.sunday{
+    color:red
+}
+table,th,td{
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+td,th{
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+}
