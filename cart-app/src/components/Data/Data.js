@@ -13,7 +13,8 @@ import pineapple from '../../Assets/Images/pineapple.png'
 import redChilly from '../../Assets/Images/red-chilly.jpeg'
 import strawberry from '../../Assets/Images/strawberry.jpg'
 import tomato from '../../Assets/Images/tomato.png'
-const Data =  [
+const Data =  {
+  items:[
     {
       id: 1,
       name: "Apple",
@@ -103,6 +104,7 @@ const Data =  [
       name: "Tomato",
       price: 3,
       image: tomato,
-    },
-  ];
+    }
+  ]
+};
 export default Data;
