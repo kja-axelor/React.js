@@ -1,20 +1,20 @@
-import apple from '../../Assets/Images/apple.jpeg'
-import banana from '../../Assets/Images/banana.png'
-import brinjal from '../../Assets/Images/brinjal.jpeg'
-import broccoli from '../../Assets/Images/broccoli.jpeg'
-import capcicum from '../../Assets/Images/capcicum.jpeg'
-import carrot from '../../Assets/Images/carrot.jpg'
-import cherry from '../../Assets/Images/cherry.png'
-import graphes from '../../Assets/Images/graphes.jpeg'
-import guava from '../../Assets/Images/guava.png'
-import mashroom from '../../Assets/Images/mashroom.png'
-import onion from '../../Assets/Images/onion.jpg'
-import pineapple from '../../Assets/Images/pineapple.png'
-import redChilly from '../../Assets/Images/red-chilly.jpeg'
-import strawberry from '../../Assets/Images/strawberry.jpg'
-import tomato from '../../Assets/Images/tomato.png'
-const Data =  {
-  items:[
+import apple from "../../Assets/Images/apple.jpeg";
+import banana from "../../Assets/Images/banana.png";
+import brinjal from "../../Assets/Images/brinjal.jpeg";
+import broccoli from "../../Assets/Images/broccoli.jpeg";
+import capcicum from "../../Assets/Images/capcicum.jpeg";
+import carrot from "../../Assets/Images/carrot.jpg";
+import cherry from "../../Assets/Images/cherry.png";
+import graphes from "../../Assets/Images/graphes.jpeg";
+import guava from "../../Assets/Images/guava.png";
+import mashroom from "../../Assets/Images/mashroom.png";
+import onion from "../../Assets/Images/onion.jpg";
+import pineapple from "../../Assets/Images/pineapple.png";
+import redChilly from "../../Assets/Images/red-chilly.jpeg";
+import strawberry from "../../Assets/Images/strawberry.jpg";
+import tomato from "../../Assets/Images/tomato.png";
+const Data = {
+  items: [
     {
       id: 1,
       name: "Apple",
@@ -104,7 +104,7 @@ const Data =  {
       name: "Tomato",
       price: 3,
       image: tomato,
-    }
-  ]
+    },
+  ],
 };
 export default Data;
