@@ -2,11 +2,11 @@ import React from 'react'
 
 export default function Prevbutton(props) {
     const prevhandler = () => {
-        props.onPrev();
+        props.buttonHandler();
     }
     return (
       <>
-        <i className="fas fa-angle-up up" onClick={prevhandler}></i>
+        <i className="fas fa-angle-up up" onClick={prevhandler} style={{'cursor':'pointer'}}></i>
       </>
     );
 }

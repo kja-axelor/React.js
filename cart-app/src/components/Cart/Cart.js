@@ -1,10 +1,11 @@
 import React from "react";
+import { Alert, Badge, Button, Col } from "react-bootstrap";
 
 export default function Cart(props) {
   const { onAdd, cartItems, onRemove, countCartItems } = props;
   const total = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   return (
-    <div className="col-4 bg-light">
+    <Col xs={4} className="bg-light">
       <h1 className="text-center">Cart Items</h1>
 
       {countCartItems ? (
@@ -17,32 +18,37 @@ export default function Cart(props) {
 
       <div>
         {cartItems.length === 0 && (
-          <div className="alert alert-warning">Cart is Empty</div>
+          <Alert variant="warning">Cart is Empty</Alert>
         )}
 
         {cartItems.map((item, index) => (
-          <div key={item.id} className="alert alert-secondary">
-            <div>
+          <Alert variant="secondary" key={item.id}>
+            <Alert.Heading>
               {index + 1}. {item.name}
-            </div>
+            </Alert.Heading>
             <div>
-              <button
+              <Button
+                variant="success"
+                className="mx-1"
                 onClick={() => onAdd(item)}
-                className="btn btn-success btn mx-1">
+              >
+                {" "}
                 +
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="danger"
+                className="mx-1"
                 onClick={() => onRemove(item)}
-                className="btn btn-danger btn mx-1">
+              >
+                {" "}
                 -
-              </button>
+              </Button>
             </div>
             <div>
-              ₹ {item.price.toFixed(2)} X {item.qty} = {" "}
+              ₹ {item.price.toFixed(2)} X {item.qty} ={" "}
               {(item.qty * item.price).toFixed(2)}
             </div>
-          </div>
-          
+          </Alert>
         ))}
 
         {cartItems.length !== 0 && (
@@ -50,13 +56,13 @@ export default function Cart(props) {
             <hr />
             <div className="fw-bold">
               Net Total:{" "}
-              <span className="badge rounded-pill bg-primary text-end">
+              <Badge pill bg="primary">
                 ₹ {total.toFixed(2)}
-              </span>
+              </Badge>
             </div>
           </>
         )}
       </div>
-    </div>
+    </Col>
   );
 }

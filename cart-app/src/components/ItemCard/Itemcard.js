@@ -1,25 +1,31 @@
 import React from "react";
+import { Button, Card } from "react-bootstrap";
 export default function Itemcard(props) {
   const { item, onAdd } = props;
   return (
-    <div className="card" style={{"width":"12rem"}}>
-      <img
-        src={item.image}
-        className="card-img-top my-3"
-        alt={item.name}
-        style={{ "maxWidth": "8rem", "height": "7rem" }}
-      />
-      <div className="card-body">
-        <div>
-          <h5 className="card-title">{item.name}</h5>
-          <span className="card-text fw-bold">₹ {item.price}</span>
-        </div>
-        <div>
-          <button onClick={() => onAdd(item)} className="btn btn-primary my-2">
+    <>
+      <Card style={{ width: "12rem" }}>
+        <Card.Img
+          variant="top"
+          className="my-3"
+          src={item.image}
+          style={{ maxWidth: "8rem", height: "7rem" }}
+          alt={item.name}
+        ></Card.Img>
+        <Card.Body>
+          <div>
+            <Card.Title>{item.name}</Card.Title>
+            <Card.Text className="fw-bold">₹ {item.price}</Card.Text>
+          </div>
+          <Button
+            variant="primary"
+            onClick={() => onAdd(item)}
+            className="my-2"
+          >
             Add to Cart
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Card.Body>
+      </Card>
+    </>
   );
 }

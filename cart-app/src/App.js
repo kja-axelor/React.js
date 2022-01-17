@@ -3,7 +3,7 @@ import Items from "./components/Items/Items";
 import Cart from "./components/Cart/Cart";
 import Data from "./components/Data/Data";
 import { useState } from "react";
-import { ToastContainer } from "react-bootstrap";
+import { Container, Row, ToastContainer } from "react-bootstrap";
 import Tost from "./components/Tost/Tost";
 
 function App() {
@@ -52,9 +52,9 @@ function App() {
   };
 
   return (
-    <div className="container-fluid">
+    <Container fluid>
       <Header />
-      <div className="row">
+      <Row>
         <Items onAdd={onAdd} items={Data} />
         <Cart
           onAdd={onAdd}
@@ -62,7 +62,7 @@ function App() {
           onRemove={onRemove}
           countCartItems={cartItems.length}
         />
-      </div>
+      </Row>
       <ToastContainer position="top-end" className="p-1">
         <Tost
           handleToastClose={handleToastClose}
@@ -70,7 +70,7 @@ function App() {
           isAdd={isAdd}
         />
       </ToastContainer>
-    </div>
+    </Container>
   );
 }
 

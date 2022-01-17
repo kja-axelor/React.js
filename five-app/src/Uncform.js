@@ -15,7 +15,7 @@ export default class Uncform extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.textInput.current.value);
+    console.log(this.textInput.current);
     this.setState({value:this.textInput.current.value})
   } 
   render() {
@@ -32,8 +32,9 @@ export default class Uncform extends Component {
         </form> */}
         <h2>You typed {this.state.value}</h2>
         <form action="" onSubmit={this.handleSubmit}>
-            Input <input type="text" ref={this.textInput} className="form-control"/><br />
-            <input type="submit" value="Submit" className="btn btn-info" />
+            <label className="form-label">Input</label>
+            <input type="text" ref={this.textInput} className="form-control" onChange={this.handleSubmit}/><br />
+            {/* <input type="submit" value="Submit" className="btn btn-info" /> */}
         </form>
       </div>
     );

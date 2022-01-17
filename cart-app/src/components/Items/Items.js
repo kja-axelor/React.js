@@ -1,14 +1,15 @@
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import Itemcard from "../ItemCard/Itemcard";
 export default function Items(props) {
   return (
-    <div className="col-8 bg-light">
+    <Col xs={8} className="bg-light">
       <h1 className="text-center">Items</h1>
-      <div className="row">
+      <Row>
         {props.items.items.map((item) => {
           return <Itemcard key={item.id} item={item} onAdd={props.onAdd} />;
         })}
-      </div>
-    </div>
+      </Row>
+    </Col>
   );
 }

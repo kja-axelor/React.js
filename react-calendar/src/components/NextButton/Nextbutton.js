@@ -1,13 +1,13 @@
 import React from 'react'
-import "./nextbutton.css";
 
 export default function Nextbutton(props) {
     const nexthandler = () => {
-      props.onNext();
+      props.setIsNext(true);
+      props.buttonHandler();
     }
     return (
       <>
-        <i className="fas fa-angle-down down" onClick={nexthandler}></i>
+        <i className="fas fa-angle-down down" onClick={nexthandler} style={{'cursor':'pointer'}}></i>
       </>
     );
 }

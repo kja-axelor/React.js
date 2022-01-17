@@ -5,6 +5,7 @@ import Prevbutton from '../PrevButton/Prevbutton';
 
 export default function View() {
   const[date,setDate] = useState(new Date());
+  const[isNext,setIsNext] = useState(null);
   
   var calendar = () => {
     const firstdayIndex = new Date(date.getFullYear(),date.getMonth(),1).getDay();
@@ -24,31 +25,25 @@ export default function View() {
     let count = firstdayIndex - 1;
     for (let i = 1; i <= lastDay; i++) {
         count += 1;
-        // row seperate
         if(count % 7 == 0){  
           tr.push(<tr key={"curr" + i}>{td}</tr>);
           td = [];
           count = 0;
         }
-        // today
         if(i === new Date().getDate())
         {
             td.push(<td className="today" key={'curr' + i}>{i}</td>);
         }
         else if(count % 7 == 5){
-          // friday
             td.push(<td className="friday" key={'curr' + i}>{i}</td>)
         }
         else if(count % 7 == 0){
-            // Sunday
             td.push(<td className="sunday" key={'curr' + i}>{i}</td>);
         }
         else{
             td.push(<td key={'curr' + i}>{i}</td>);
         }
     }
-
-    // space logic (next days)
     const nextDays = 7 - lastDayIndex - 1;
     for (let index = 1; index <= nextDays; index++) {
         td.push(<td className="disable" key={"next" + index}>{index}</td>);
@@ -74,27 +69,28 @@ export default function View() {
     "December",
   ];
   const c_month = date.getMonth();
-
-  const handleNextDate = () => {
-      setDate((newDate) => {
-        newDate.setMonth(newDate.getMonth() + 1);
-        return new Date(newDate);
-      });
-  }
-
-  const handlePrevDate = () => {
-      setDate((newDate) => {
-        newDate.setMonth(newDate.getMonth() - 1);
-        return new Date(newDate);
-      });
+  const buttonHandler = () => {
+    if(isNext)
+    {
+       setDate((newDate) => {
+         newDate.setMonth(newDate.getMonth() + 1);
+         return new Date(newDate);
+       });
+    }
+    else{
+     setDate((newDate) => {
+       newDate.setMonth(newDate.getMonth() - 1);
+       return new Date(newDate);
+     });
+    } 
   }
   return (
     <div>
       <div className="months">
         <h1>{months[c_month]}</h1>
-        <Prevbutton onPrev={handlePrevDate}/>
+        <Prevbutton buttonHandler={buttonHandler}/>
         <p>{date.toDateString()}</p>
-        <Nextbutton onNext={handleNextDate}/>
+        <Nextbutton buttonHandler={buttonHandler} setIsNext={setIsNext}/>
       </div>
       <div className="table">
         <table>
