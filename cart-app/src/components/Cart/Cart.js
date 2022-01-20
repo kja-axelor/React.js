@@ -1,68 +1,66 @@
 import React from "react";
-import { Alert, Badge, Button, Col } from "react-bootstrap";
+import {
+  Alert,
+  Badge,
+  Button,
+  ButtonGroup,
+  Col,
+  ListGroup,
+} from "react-bootstrap";
 
 export default function Cart(props) {
-  const { onAdd, cartItems, onRemove, countCartItems } = props;
+  const { onAdd, cartItems, onRemove } = props;
   const total = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   return (
-    <Col xs={4} className="bg-light">
-      <h1 className="text-center">Cart Items</h1>
-
-      {countCartItems ? (
-        <h1>
-          <span className="badge bg-secondary">{countCartItems}</span>
-        </h1>
-      ) : (
-        ""
-      )}
-
-      <div>
+    <Col md={4} className="mt-4 pt-0 p-4">
         {cartItems.length === 0 && (
           <Alert variant="warning">Cart is Empty</Alert>
         )}
 
-        {cartItems.map((item, index) => (
-          <Alert variant="secondary" key={item.id}>
-            <Alert.Heading>
-              {index + 1}. {item.name}
-            </Alert.Heading>
-            <div>
-              <Button
-                variant="success"
-                className="mx-1"
-                onClick={() => onAdd(item)}
-              >
-                {" "}
-                +
-              </Button>
-              <Button
-                variant="danger"
-                className="mx-1"
-                onClick={() => onRemove(item)}
-              >
-                {" "}
-                -
-              </Button>
-            </div>
-            <div>
-              ₹ {item.price.toFixed(2)} X {item.qty} ={" "}
-              {(item.qty * item.price).toFixed(2)}
-            </div>
-          </Alert>
-        ))}
+        <ListGroup as="ol" numbered>
+          {cartItems.map((item) => (
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-center"
+              key={item.id}
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">
+                  {item.title} / ₹ {item.price}
+                </div>
+                <ButtonGroup size="sm">
+                  <Button variant="success" onClick={() => onAdd(item)}>
+                    +
+                  </Button>
+                  <Button
+                    variant="light"
+                    disabled={true}
+                    onClick={() => onAdd(item)}
+                  >
+                    {item.qty}
+                  </Button>
+                  <Button variant="danger" onClick={() => onRemove(item)}>
+                    -
+                  </Button>
+                </ButtonGroup>
+              </div>
+              <Badge variant="primary" pill>
+                {(item.qty * item.price).toFixed(2)}
+              </Badge>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
 
         {cartItems.length !== 0 && (
-          <>
-            <hr />
-            <div className="fw-bold">
-              Net Total:{" "}
-              <Badge pill bg="primary">
-                ₹ {total.toFixed(2)}
-              </Badge>
+          <div className="d-flex justify-content-between align-items-start list-group-item">
+            <div className="ms-2 me-auto">
+              <div className="fw-bold">Net Total</div>
             </div>
-          </>
+            <Badge bg="primary" pill>
+              ₹ {total.toFixed(2)}
+            </Badge>
+          </div>    
         )}
-      </div>
     </Col>
   );
 }

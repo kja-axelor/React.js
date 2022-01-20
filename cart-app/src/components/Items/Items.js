@@ -3,10 +3,9 @@ import { Col, Row } from "react-bootstrap";
 import Itemcard from "../ItemCard/Itemcard";
 export default function Items(props) {
   return (
-    <Col xs={8} className="bg-light">
-      <h1 className="text-center">Items</h1>
+    <Col md={8} className="p-4 pt-0">
       <Row>
-        {props.items.items.map((item) => {
+        {props.items.map((item) => {
           return <Itemcard key={item.id} item={item} onAdd={props.onAdd} />;
         })}
       </Row>

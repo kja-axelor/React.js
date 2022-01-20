@@ -1,21 +1,31 @@
-import Header from "./components/Header/Header";
 import Items from "./components/Items/Items";
 import Cart from "./components/Cart/Cart";
-import Data from "./components/Data/Data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, ToastContainer } from "react-bootstrap";
 import Tost from "./components/Tost/Tost";
+import "./App.css";
+import Menu from "./components/Menu/Menu";
 
 function App() {
   const [cartItems, SetCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const [tostItems, setTostItems] = useState([]);
   const [isAdd, setIsAdd] = useState(null);
+  const [category, setCategory] = useState("All");
+
+  useEffect(() => {
+    fetch("./products.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      });
+  }, []);
 
   const onAdd = (item) => {
     setIsAdd(true);
     setTostItems([
       ...tostItems,
-      { id: item.name + Math.random(), name: item.name },
+      { id: item.title + Math.random(), name: item.title },
     ]);
     const exist = cartItems.find((x) => x.id === item.id);
     if (exist) {
@@ -33,7 +43,7 @@ function App() {
     setIsAdd(false);
     setTostItems([
       ...tostItems,
-      { id: item.name + Math.random(), name: item.name },
+      { id: item.title + Math.random(), name: item.title },
     ]);
     const exist = cartItems.find((x) => x.id === item.id);
     if (exist.qty === 1) {
@@ -51,26 +61,44 @@ function App() {
     return setTostItems(tostItems.filter((item) => item.id !== id));
   };
 
+  const filterCategory = (newCategory) => {
+    setCategory(newCategory);
+  };
+
+  const getFilterProducts = () => {
+    if (category === "All") {
+      return products;
+    }
+    return products.filter((item) => {
+      return item.category === category;
+    });
+  };
   return (
-    <Container fluid>
-      <Header />
-      <Row>
-        <Items onAdd={onAdd} items={Data} />
-        <Cart
-          onAdd={onAdd}
-          cartItems={cartItems}
-          onRemove={onRemove}
-          countCartItems={cartItems.length}
-        />
-      </Row>
-      <ToastContainer position="top-end" className="p-1">
-        <Tost
-          handleToastClose={handleToastClose}
-          tostItems={tostItems}
-          isAdd={isAdd}
-        />
-      </ToastContainer>
-    </Container>
+    <div className="App">
+      <Menu
+        countCartItems={cartItems.length}
+        filterCategory={filterCategory}
+        setProducts={setProducts}
+        products={products}
+        category={category}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        cartItems={cartItems}
+      />
+      <Container fluid>
+        <Row>
+          <Items onAdd={onAdd} items={getFilterProducts()} />
+          <Cart onAdd={onAdd} cartItems={cartItems} onRemove={onRemove} />
+        </Row>
+        <ToastContainer position="bottom-end">
+          <Tost
+            handleToastClose={handleToastClose}
+            tostItems={tostItems}
+            isAdd={isAdd}
+          />
+        </ToastContainer>
+      </Container>
+    </div>
   );
 }
 
