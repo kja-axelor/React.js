@@ -12,7 +12,8 @@ export default function Cart(props) {
   const { onAdd, cartItems, onRemove } = props;
   const total = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   return (
-    <Col md={4} className="mt-4 pt-0 p-4">
+    
+      <div>
         {cartItems.length === 0 && (
           <Alert variant="warning">Cart is Empty</Alert>
         )}
@@ -29,18 +30,14 @@ export default function Cart(props) {
                   {item.title} / ₹ {item.price}
                 </div>
                 <ButtonGroup size="sm">
-                  <Button variant="success" onClick={() => onAdd(item)}>
-                    +
-                  </Button>
-                  <Button
-                    variant="light"
-                    disabled={true}
-                    onClick={() => onAdd(item)}
-                  >
-                    {item.qty}
-                  </Button>
                   <Button variant="danger" onClick={() => onRemove(item)}>
                     -
+                  </Button>
+                  <Button variant="light" disabled={true}>
+                    {item.qty}
+                  </Button>
+                  <Button variant="success" onClick={() => onAdd(item)}>
+                    +
                   </Button>
                 </ButtonGroup>
               </div>
@@ -59,8 +56,8 @@ export default function Cart(props) {
             <Badge bg="primary" pill>
               ₹ {total.toFixed(2)}
             </Badge>
-          </div>    
+          </div>
         )}
-    </Col>
+      </div>
   );
 }

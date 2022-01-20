@@ -103,5 +103,12 @@
     "category": "vegetable",
     "price": 10,
     "url": "img/carrot.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Pumpkin",
+    "category": "seed",
+    "price": 60,
+    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcktAnvOSpYsVJiEfh9uoi6FCqY2nCXqX9wLA06zURGI-_Gm7cng5N6hqz0S9vNwzPeLI&usqp=CAU"
   }
 ]
