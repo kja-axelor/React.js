@@ -1,5 +1,6 @@
 import React from "react";
 import { Toast } from "react-bootstrap";
+import "./tost.css";
 
 export default function Tost(props) {
   const { handleToastClose, tostItems, isAdd } = props;

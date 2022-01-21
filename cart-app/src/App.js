@@ -1,28 +1,32 @@
-import Items from "./components/Items/Items";
-import Cart from "./components/Cart/Cart";
+import Items from "./components/Items";
+import Cart from "./components/Cart";
 import { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  ToastContainer,
-  Col,
-  ListGroupItem,
-} from "react-bootstrap";
-import Tost from "./components/Tost/Tost";
-import Menu from "./components/Menu/Menu";
+import { Container, Row, ToastContainer, Col } from "react-bootstrap";
+import Tost from "./components/Tost";
+import Menu from "./components/Menu";
 
 function App() {
   const [cartItems, SetCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [tostItems, setTostItems] = useState([]);
   const [isAdd, setIsAdd] = useState(null);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState([]);
+  const [data,setData] = useState([]);
 
   useEffect(() => {
     fetch("./products.json")
       .then((res) => res.json())
       .then((data) => {
+        let dataCategory = [];
+        data.map((item) => {
+          if (!dataCategory.includes(item.category)) {
+            dataCategory.push(item.category);
+          }
+          return 0;
+        });
+        setData(data);
         setProducts(data);
+        setCategory(dataCategory);
       });
   }, []);
 
@@ -66,28 +70,27 @@ function App() {
     return setTostItems(tostItems.filter((item) => item.id !== id));
   };
 
-  const filterCategory = (newCategory) => {
-    setCategory(newCategory);
-  };
 
-  const getFilterProducts = () => {
-    if (category === "All") {
-      return products;
+  const getFilterProducts = (key) => {
+    if (key === "All") {
+      return setProducts(data);
     }
-    return products.filter((item) => {
-      return item.category === category;
+    const result =  data.filter((item) => {
+      return item.category === key;
     });
+    setProducts(result);
   };
 
   const sortProducts = (choice) => {
     const listItems = getFilterProducts();
+    console.log(listItems);
     if (choice === "title") {
       listItems.sort((a, b) => {
         if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
         if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
         return 0;
       });
-      console.log(listItems);
+      return setProducts(listItems);
     }
     if (choice === "category") {
       listItems.sort((a, b) => {
@@ -95,29 +98,30 @@ function App() {
         if (a.category.toLowerCase() > b.category.toLowerCase()) return 1;
         return 0;
       });
-      console.log(listItems);
+     return setProducts(listItems);
     }
     if (choice === "price") {
       listItems.sort((a, b) => {
         return a.price - b.price;
       });
-      console.log(listItems);
+     return setProducts(listItems);
     }
   };
   return (
     <div className="App">
       <Menu
         countCartItems={cartItems.length}
-        filterCategory={filterCategory}
+        getFilterProducts={getFilterProducts}
         category={category}
         onAdd={onAdd}
         onRemove={onRemove}
         cartItems={cartItems}
         sortProducts={sortProducts}
+        products={products}
       />
       <Container fluid>
         <Row>
-          <Items onAdd={onAdd} items={getFilterProducts()} />
+          <Items onAdd={onAdd} items={products} />
           <Col md={4} className="mt-4 pt-0 p-4">
             <Cart onAdd={onAdd} cartItems={cartItems} onRemove={onRemove} />
           </Col>

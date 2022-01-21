@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import "./itemcard.css";
+
 export default function Itemcard(props) {
   const { item, onAdd } = props;
   return (

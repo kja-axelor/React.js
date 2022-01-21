@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./menu.css";
 import {
   Badge,
   Container,
@@ -13,13 +14,15 @@ import Cart from "../Cart/Cart";
 export default function Menu(props) {
   const {
     countCartItems,
-    filterCategory,
+    getFilterProducts,
     category,
     onAdd,
     onRemove,
     cartItems,
     sortProducts,
+    products,
   } = props;
+  console.log(category);
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -27,18 +30,21 @@ export default function Menu(props) {
           <Navbar.Brand href="#home">Axelor POS</Navbar.Brand>
           <Nav
             className="me-auto"
-            activeKey={category}
-            onSelect={(key) => filterCategory(key)}
+            onSelect={(key) => getFilterProducts(key)}
+            defaultActiveKey={"All"}
           >
             <Nav.Link eventKey={"All"}>All</Nav.Link>
-            <Nav.Link eventKey={"fruit"}>Fruits</Nav.Link>
-            <Nav.Link eventKey={"vegetable"}>Vegetables</Nav.Link>
-            <Nav.Link eventKey={"seed"}>Seeds</Nav.Link>
-
+            {category.map((cat) => {
+              return (
+                <Nav.Link key={cat} eventKey={cat}>
+                  {cat}
+                </Nav.Link>
+              );
+            })}
             <NavDropdown
               title="Sort"
               id="nav-dropdown"
-              onClick={(key) => sortProducts(key)}
+              onSelect={(key) => sortProducts(key)}
             >
               <NavDropdown.Item eventKey="title">By Title</NavDropdown.Item>
               <NavDropdown.Item eventKey="price">By Price</NavDropdown.Item>
