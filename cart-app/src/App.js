@@ -1,5 +1,5 @@
 import Items from "./components/Items";
-import Cart from "./components/Cart";
+import Cartlist from "./components/Cartlist";
 import { useState, useEffect } from "react";
 import { Container, Row, ToastContainer, Col } from "react-bootstrap";
 import Tost from "./components/Tost";
@@ -11,7 +11,7 @@ function App() {
   const [tostItems, setTostItems] = useState([]);
   const [isAdd, setIsAdd] = useState(null);
   const [category, setCategory] = useState([]);
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetch("./products.json")
@@ -70,42 +70,35 @@ function App() {
     return setTostItems(tostItems.filter((item) => item.id !== id));
   };
 
-
   const getFilterProducts = (key) => {
     if (key === "All") {
       return setProducts(data);
     }
-    const result =  data.filter((item) => {
+    const result = data.filter((item) => {
       return item.category === key;
     });
     setProducts(result);
   };
 
   const sortProducts = (choice) => {
-    const listItems = getFilterProducts();
-    console.log(listItems);
-    if (choice === "title") {
+    setProducts((prevProduct) => {
+      let listItems = [...prevProduct];
       listItems.sort((a, b) => {
-        if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
-        if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+        if (a[choice] < b[choice]) return -1;
+        if (a[choice] > b[choice]) return 1;
         return 0;
       });
-      return setProducts(listItems);
-    }
-    if (choice === "category") {
+      return listItems;
+    });
+    setData((prevProduct) => {
+      let listItems = [...prevProduct];
       listItems.sort((a, b) => {
-        if (a.category.toLowerCase() < b.category.toLowerCase()) return -1;
-        if (a.category.toLowerCase() > b.category.toLowerCase()) return 1;
+        if (a[choice] < b[choice]) return -1;
+        if (a[choice] > b[choice]) return 1;
         return 0;
       });
-     return setProducts(listItems);
-    }
-    if (choice === "price") {
-      listItems.sort((a, b) => {
-        return a.price - b.price;
-      });
-     return setProducts(listItems);
-    }
+      return listItems;
+    });
   };
   return (
     <div className="App">
@@ -123,7 +116,7 @@ function App() {
         <Row>
           <Items onAdd={onAdd} items={products} />
           <Col md={4} className="mt-4 pt-0 p-4">
-            <Cart onAdd={onAdd} cartItems={cartItems} onRemove={onRemove} />
+            <Cartlist onAdd={onAdd} cartItems={cartItems} onRemove={onRemove} />
           </Col>
         </Row>
         <ToastContainer position="bottom-end">

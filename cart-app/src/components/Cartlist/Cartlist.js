@@ -1,8 +1,8 @@
 import React from "react";
 import { Alert, Badge, Button, ButtonGroup, ListGroup } from "react-bootstrap";
-import "./cart.css";
+import "./cartlist.css";
 
-export default function Cart(props) {
+export default function Cartlist(props) {
   const { onAdd, cartItems, onRemove } = props;
   const total = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   return (
