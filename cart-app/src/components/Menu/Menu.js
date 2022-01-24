@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./menu.css";
+import "./Menu.css";
 import {
   Badge,
   Container,
@@ -10,18 +10,16 @@ import {
   OverlayTrigger,
   Popover,
 } from "react-bootstrap";
-import { Cart } from "react-bootstrap-icons";
-import Cartlist from "../Cartlist/Cartlist";
+import { Cart, SortDown, SortUp } from "react-bootstrap-icons";
 
 export default function Menu(props) {
   const {
     countCartItems,
-    getFilterProducts,
-    category,
-    onAdd,
-    onRemove,
-    cartItems,
-    sortProducts,
+    categories,
+    renderCart,
+    onLinkClick,
+    onSortClick,
+    sort,
   } = props;
   const sortCategories = [
     {
@@ -42,35 +40,56 @@ export default function Menu(props) {
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand href="#home">Axelor POS</Navbar.Brand>
-          <Nav
-            className="me-auto"
-            onSelect={(key) => getFilterProducts(key)}
-            defaultActiveKey={"All"}
-          >
-            <Nav.Link eventKey={"All"}>All</Nav.Link>
-            {category.map((cat) => {
-              return (
-                <Nav.Link key={cat} eventKey={cat}>
-                  {cat}
-                </Nav.Link>
-              );
+          <Nav className="me-auto" defaultActiveKey="All">
+            <Nav.Link eventKey="All" onClick={() => onLinkClick("All")}>
+              All
+            </Nav.Link>
+            {categories.map((cat) => {
+              if (cat.id !== "All") {
+                return (
+                  <Nav.Link
+                    key={cat.id}
+                    onClick={() => onLinkClick(cat.id)}
+                    eventKey={cat.id}
+                  >
+                    {cat.title}
+                  </Nav.Link>
+                );
+              }
+              return null;
             })}
           </Nav>
+
           <Nav>
-            <NavDropdown
-              title="Sort"
-              id="nav-dropdown"
-              onSelect={(key) => sortProducts(key)}
-            >
+            <NavDropdown title="Sort" id="nav-dropdown">
               {sortCategories.map(({ eventKey, title }) => {
+                const active = sort && sort.name === eventKey;
                 return (
-                  <NavDropdown.Item eventKey={eventKey} key={eventKey}>
-                    {title}
+                  <NavDropdown.Item
+                    key={eventKey}
+                    className={active ? "active" : ""}
+                    onClick={() => {
+                      onSortClick({
+                        name: eventKey,
+                        order: active && sort.order === "asc" ? "desc" : "asc",
+                      });
+                    }}
+                  >
+                    {title}{" "}
+                    {active &&
+                      (sort.order === "asc" ? <SortUp /> : <SortDown />)}
                   </NavDropdown.Item>
                 );
               })}
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => sortProducts("id")}>
+              <NavDropdown.Item
+                onClick={() =>
+                  onSortClick({
+                    name: "id",
+                    order: "asc",
+                  })
+                }
+              >
                 Clear
               </NavDropdown.Item>
             </NavDropdown>
@@ -88,13 +107,7 @@ export default function Menu(props) {
                     }}
                   >
                     <Popover.Header as="h3">Cart</Popover.Header>
-                    <Popover.Body>
-                      <Cartlist
-                        onAdd={onAdd}
-                        cartItems={cartItems}
-                        onRemove={onRemove}
-                      />
-                    </Popover.Body>
+                    <Popover.Body>{renderCart()}</Popover.Body>
                   </Popover>
                 }
               >
@@ -105,17 +118,7 @@ export default function Menu(props) {
                 >
                   <Cart />
                   {countCartItems ? (
-                    <Badge
-                      pill
-                      bg="danger"
-                      style={{
-                        fontSize: ".65rem",
-                        left: "-5px",
-                        position: "relative",
-                        top: "-10px",
-                        cursor: "pointer",
-                      }}
-                    >
+                    <Badge pill bg="danger" className="badge-icon">
                       {countCartItems}
                     </Badge>
                   ) : (

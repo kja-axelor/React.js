@@ -1,6 +1,5 @@
 import React from "react";
 import { Alert, Badge, Button, ButtonGroup, ListGroup } from "react-bootstrap";
-import "./cartlist.css";
 
 export default function Cartlist(props) {
   const { onAdd, cartItems, onRemove } = props;

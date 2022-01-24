@@ -1,9 +1,8 @@
 import React from "react";
 import { Toast } from "react-bootstrap";
-import "./tost.css";
 
-export default function Tost(props) {
-  const { handleToastClose, tostItems, isAdd } = props;
+export default function Notification(props) {
+  const { handleToastClose, tostItems } = props;
   return (
     <>
       {tostItems.map((item) => (
@@ -17,11 +16,7 @@ export default function Tost(props) {
             <strong className="me-auto">{item.name}</strong>
             <small>just now</small>
           </Toast.Header>
-          {isAdd ? (
-            <Toast.Body>Added successfully!</Toast.Body>
-          ) : (
-            <Toast.Body>Removed successfully!</Toast.Body>
-          )}
+          <Toast.Body>{item.description}</Toast.Body>
         </Toast>
       ))}
     </>
