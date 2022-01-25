@@ -1,16 +1,18 @@
 import Items from "./components/Items";
 import Cartlist from "./components/ItemCard/Cartlist";
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo, useContext } from "react";
 import { Container, Row, ToastContainer, Col } from "react-bootstrap";
 import Notification from "./components/Notification";
 import Menu from "./components/Menu";
+import { myContext } from "./context/Context";
 
 function App() {
-  const [cartItems, SetCartItems] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [tostItems, setTostItems] = useState([]);
-  const [category, setCategory] = useState("All");
-  const [sort, setSort] = useState(null);
+  const data = useContext(myContext);
+  const [cartItems, SetCartItems] = data.cartItems;
+  const [products, setProducts] = data.products;
+  const [notifications, setNotifications] = data.notifications;
+  const [category, setCategory] = data.category;
+  const [sort, setSort] = data.sort;
 
   useEffect(() => {
     fetch("./products.json")
@@ -18,7 +20,7 @@ function App() {
       .then((data) => {
         setProducts(data);
       });
-  }, []);
+  });
 
   function toCamelCase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -51,15 +53,19 @@ function App() {
     return result;
   };
 
+  const sortData = (sort, $product) => {
+    const { name, order } = sort;
+    return $product.sort((a, b) => {
+      if (a[name] > b[name]) return order === "asc" ? 1 : -1;
+      if (a[name] < b[name]) return order === "asc" ? -1 : 1;
+      return 0;
+    });
+  };
+
   const $product = useMemo(() => {
     const $product = getFilterProducts(products, category);
     if (sort) {
-      const { name, order } = sort;
-      return $product.sort((a, b) => {
-        if (a[name] > b[name]) return order === "asc" ? 1 : -1;
-        if (a[name] < b[name]) return order === "asc" ? -1 : 1;
-        return 0;
-      });
+      sortData(sort, $product);
     }
     return $product;
   }, [products, category, sort]);
@@ -72,8 +78,8 @@ function App() {
     setSort(obj);
   };
   const onAdd = (item) => {
-    setTostItems([
-      ...tostItems,
+    setNotifications([
+      ...notifications,
       {
         id: item.title + Math.random(),
         name: item.title,
@@ -93,8 +99,8 @@ function App() {
   };
 
   const onRemove = (item) => {
-    setTostItems([
-      ...tostItems,
+    setNotifications([
+      ...notifications,
       {
         id: item.title + Math.random(),
         name: item.title,
@@ -114,7 +120,7 @@ function App() {
   };
 
   const handleToastClose = (id) => {
-    return setTostItems(tostItems.filter((item) => item.id !== id));
+    return setNotifications(notifications.filter((item) => item.id !== id));
   };
 
   const renderCart = () => {
@@ -146,7 +152,7 @@ function App() {
         <ToastContainer position="bottom-end">
           <Notification
             handleToastClose={handleToastClose}
-            tostItems={tostItems}
+            notifications={notifications}
           />
         </ToastContainer>
       </Container>

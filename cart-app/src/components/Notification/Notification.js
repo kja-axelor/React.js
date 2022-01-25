@@ -2,10 +2,10 @@ import React from "react";
 import { Toast } from "react-bootstrap";
 
 export default function Notification(props) {
-  const { handleToastClose, tostItems } = props;
+  const { handleToastClose, notifications } = props;
   return (
     <>
-      {tostItems.map((item) => (
+      {notifications.map((item) => (
         <Toast
           delay={1000}
           key={item.id}
