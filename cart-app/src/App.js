@@ -1,5 +1,5 @@
 import Items from "./components/Items";
-import Cartlist from "./components/ItemCard/Cartlist";
+import Cartlist from "./components/Cartlist";
 import { useEffect, useMemo, useContext } from "react";
 import { Container, Row, ToastContainer, Col } from "react-bootstrap";
 import Notification from "./components/Notification";
@@ -27,7 +27,7 @@ function App() {
   }
 
   const $categories = useMemo(() => {
-    let dataCategory = [];
+    let dataCategory = [{ title: "All", id: "All" }];
     products.forEach((product) => {
       if (!dataCategory.find((c) => c.id === product.category)) {
         dataCategory.push({
@@ -35,10 +35,6 @@ function App() {
           id: product.category,
         });
       }
-    });
-    dataCategory.push({
-      title: "All",
-      id: "All",
     });
     return dataCategory;
   }, [products]);
@@ -133,11 +129,8 @@ function App() {
         countCartItems={cartItems.length}
         categories={$categories}
         renderCart={renderCart}
-        products={products}
         onLinkClick={onLinkClick}
-        setSort={setSort}
         sort={sort}
-        category={category}
         onSortClick={onSortClick}
       />
       <Container fluid>

@@ -35,28 +35,24 @@ export default function Menu(props) {
       title: "By Category",
     },
   ];
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand href="#home">Axelor POS</Navbar.Brand>
+
           <Nav className="me-auto" defaultActiveKey="All">
-            <Nav.Link eventKey="All" onClick={() => onLinkClick("All")}>
-              All
-            </Nav.Link>
             {categories.map((cat) => {
-              if (cat.id !== "All") {
-                return (
-                  <Nav.Link
-                    key={cat.id}
-                    onClick={() => onLinkClick(cat.id)}
-                    eventKey={cat.id}
-                  >
-                    {cat.title}
-                  </Nav.Link>
-                );
-              }
-              return null;
+              return (
+                <Nav.Link
+                  key={cat.id}
+                  onClick={() => onLinkClick(cat.id)}
+                  eventKey={cat.id}
+                >
+                  {cat.title}
+                </Nav.Link>
+              );
             })}
           </Nav>
 
@@ -96,7 +92,7 @@ export default function Menu(props) {
           </Nav>
 
           <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
+            <Navbar.Text style={{ cursor: "pointer" }}>
               <OverlayTrigger
                 trigger="click"
                 placement="bottom"
@@ -111,11 +107,7 @@ export default function Menu(props) {
                   </Popover>
                 }
               >
-                <span
-                  tabIndex="1"
-                  style={{ cursor: "pointer" }}
-                  className="me-2"
-                >
+                <span tabIndex="1" className="me-2">
                   <Cart />
                   {countCartItems ? (
                     <Badge pill bg="danger" className="badge-icon">

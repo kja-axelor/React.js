@@ -1,7 +1,6 @@
-.badge-icon{
-    font-size: .65rem;
-    left: -5px;
-    top: -10px;
-    position: relative;
-    cursor: pointer;
+.badge-icon {
+  font-size: 0.65rem;
+  left: -5px;
+  top: -10px;
+  position: relative;
 }
