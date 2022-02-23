@@ -3,60 +3,43 @@ import Plan from "./Plan";
 import { useState } from "react";
 
 function App() {
-  const [textInput, settextInput] = useState({
-    text: "",
-    items: [],
-    editItem: false,
-    id: Date.now(),
-  });
-  const [isEditItem, setIsEditItem] = useState(null);
+  const [input, setInput] = useState("");
+  const [items, setItems] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState(null);
 
-  //handle change event
-  const changeHandler = (event) => {
-    const { name, value } = event.target;
-    settextInput({ ...textInput, [name]: value });
-  };
-
-  //handle Add event
-  const clickHandler = () => {
-    if (textInput.text !== "" && !isEditItem) {
-      const id = textInput.id;
-      const item = [...textInput.items, { id: id, text: textInput.text }];
-      settextInput({ ["items"]: item, ["text"]: "", ["id"]: Date.now() });
-    }
-    if (textInput.text !== "" && isEditItem) {
-      settextInput(
-        textInput.items.map((item) => {
-          console.log(item);
-          if (item.id === isEditItem)
-            return { ...item, text: textInput.text, id: isEditItem };
+  const addItem = () => {
+    if (isEdit) {
+      setItems(
+        items.map((item) => {
+          if (item.id === editId) {
+            return {
+              ...item,
+              text: input,
+            };
+          }
           return item;
         })
       );
+      setInput("");
+      setIsEdit(false);
+      setEditId(null);
+    } else {
+      const itemData = { id: new Date().getTime().toString(), text: input };
+      setItems([...items, itemData]);
+      setInput("");
     }
   };
 
-  // delete Handler
-  const delHandler = (id) => {
-    const oldItems = [...textInput.items];
-    const newItems = oldItems.filter((values) => values.id !== id);
-    settextInput({ ["items"]: newItems, text: "" });
+  const delItem = (id) => {
+    const newItems = items.filter((item) => item.id !== id);
+    setItems(newItems);
   };
-
-  //Edit handler
-  const editHandler = (id) => {
-    console.log("editing is done here", id);
-    const oldItems = [...textInput.items];
-    // filter according id
-    const newItems = oldItems.filter((value) => value.id !== id);
-    const editItem = oldItems.find((value) => value.id === id);
-    setIsEditItem(id);
-    settextInput({
-      ["items"]: oldItems,
-      text: editItem.text,
-      editItem: true,
-      id: id,
-    });
+  const editItem = (id) => {
+    setIsEdit(true);
+    let curEditItem = items.find((item) => item.id === id);
+    setInput(curEditItem.text);
+    setEditId(curEditItem.id);
   };
   return (
     <div className="container-fluid my-5">
@@ -71,23 +54,23 @@ function App() {
                   type="text"
                   className="form-control my-2"
                   name="text"
-                  value={textInput.text}
+                  value={input}
                   placeholder="write your task here!!!"
-                  onChange={changeHandler}
+                  onChange={(e) => setInput(e.target.value)}
                   autoFocus
                 />
               </div>
               <div className="col-2 my-2">
                 <button
-                  disabled={textInput.text === "" ? true : false}
+                  disabled={input === "" ? true : false}
+                  onClick={addItem}
                   className={
-                    textInput.editItem
+                    isEdit
                       ? "btn btn-primary px-5 fw-bold text-white"
                       : "btn btn-success px-5 fw-bold text-white"
                   }
-                  onClick={clickHandler}
                 >
-                  {textInput.editItem ? "Edit" : "Add"}
+                  {isEdit ? "Edit" : "Add"}
                 </button>
               </div>
             </div>
@@ -98,15 +81,15 @@ function App() {
             <div className="row">
               <div className="col-sm-10">
                 <ul className="row list-unstyled">
-                  {textInput.items.map((value, index) => {
+                  {items.map((item, index) => {
                     return (
                       <Plan
-                        value={value.text}
-                        key={index}
-                        num={index}
-                        id={value.id}
-                        delHandler={delHandler}
-                        editHandler={editHandler}
+                        value={item.text}
+                        key={item.id}
+                        id={item.id}
+                        num={index + 1}
+                        delItem={delItem}
+                        editItem={editItem}
                       />
                     );
                   })}
