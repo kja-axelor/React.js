@@ -1,11 +1,7 @@
-import './App.css';
-import View from './components/View/View';
+import View from "./components/View/View";
+
 function App() {
-  return (
-    <div>
-      <View />
-    </div>
-  );
+  return <View />;
 }
 
 export default App;

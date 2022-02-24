@@ -1,13 +1,17 @@
-import React from 'react'
+import React from "react";
 
 export default function Nextbutton(props) {
-    const nexthandler = () => {
-      props.setIsNext(true);
-      props.buttonHandler();
-    }
-    return (
-      <>
-        <i className="fas fa-angle-down down" onClick={nexthandler} style={{'cursor':'pointer'}}></i>
-      </>
-    );
+  const { buttonHandler, setIsNext } = props;
+
+  const clickHandler = () => {
+    setIsNext(true);
+    buttonHandler();
+  };
+  return (
+    <i
+      className="fas fa-angle-down down"
+      onClick={clickHandler}
+      style={{ cursor: "pointer" }}
+    ></i>
+  );
 }
