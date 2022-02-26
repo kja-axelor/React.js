@@ -1,0 +1,69 @@
+.header-container {
+  width: 50%;
+  margin: auto;
+}
+.header {
+  display: flex;
+  /*
+    display as flex
+    justify-content : space-between means all the content inside div will stratch upto end
+    align-items : center means vertically center
+    flex:1 means complete width
+    font-size will also impact on image
+    padding means spacing beetween(inside)
+    */
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  margin: 6px 12px;
+  padding: 0px 8px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 500;
+}
+.header-logo i {
+  display: flex;
+  align-items: center;
+  margin-left: 6px;
+}
+
+.header-button {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 0px 8px;
+}
+.header-button i {
+  margin-right: 4px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .header-container {
+    width: 90%;
+  }
+  .header-logo {
+    font-size: 20px;
+  }
+  .header-button {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 512px) {
+  .header-container {
+    width: 100%;
+  }
+  .header-logo {
+    font-size: 24px;
+  }
+  .header-button {
+    font-size: 16px;
+  }
+}
