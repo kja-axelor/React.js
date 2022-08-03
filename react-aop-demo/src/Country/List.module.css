@@ -1,0 +1,21 @@
+.createHeading {
+  background-color: green;
+}
+.updateHeading {
+  background-color: purple;
+}
+.listHeading {
+  background-color: pink;
+}
+
+.heading {
+  padding: 15px;
+  text-align: center;
+  color: white;
+  margin-top: 15px;
+}
+tr,
+th,
+td {
+  text-align: center;
+}
