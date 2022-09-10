@@ -25,7 +25,7 @@ function View() {
       .get(`http://localhost:3434/students/${id}`)
       .then((response) => setStudent(response.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [id]);
 
   return (
     <>

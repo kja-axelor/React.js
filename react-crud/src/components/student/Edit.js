@@ -17,7 +17,7 @@ function Edit() {
       .get(`http://localhost:3434/students/${id}`)
       .then((response) => setStudent(response.data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [id]);
 
   const changeHandler = (event) => {
     setStudent({ ...student, [event.target.name]: event.target.value });
