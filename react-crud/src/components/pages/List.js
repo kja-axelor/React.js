@@ -10,6 +10,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
@@ -19,8 +20,19 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const useStyles = makeStyles({
+  table: {
+    "& thead": {
+      "& tr": { backgroundColor: "#616161" },
+      "& th": { textAlign: "center", color: "white", fontWeight: "bold" },
+    },
+    "& td": { textAlign: "center" },
+  },
+});
+
 function List() {
   const [students, setStudents] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     axios
@@ -48,55 +60,23 @@ function List() {
         <Typography variant="h4">Student List</Typography>
       </Box>
       <TableContainer component={Paper}>
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
-            <TableRow style={{ backgroundColor: "#616161" }}>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                No.
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                Name
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                Email
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                Action
-              </TableCell>
+            <TableRow>
+              <TableCell>No.</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {students.map((student, index) => {
               return (
                 <TableRow key={index}>
-                  <TableCell align="center">{index + 1}</TableCell>
-                  <TableCell align="center">{student.stuname}</TableCell>
-                  <TableCell align="center">{student.email}</TableCell>
-                  <TableCell align="center">
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{student.stuname}</TableCell>
+                  <TableCell>{student.email}</TableCell>
+                  <TableCell>
                     <Tooltip title="View">
                       <IconButton>
                         <Link to={`/view/${student.id}`}>

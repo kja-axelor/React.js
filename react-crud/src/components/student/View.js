@@ -9,16 +9,28 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const useStyles = makeStyles({
+  table: {
+    "& thead": {
+      "& tr": { backgroundColor: "#616161" },
+      "& th": { textAlign: "center", color: "white", fontWeight: "bold" },
+    },
+    "& td": { textAlign: "center" },
+  },
+});
+
 function View() {
   let { id } = useParams();
   const [student, setStudent] = useState([]);
   const navigate = useNavigate();
+  const classes = useStyles();
 
   useEffect(() => {
     axios
@@ -33,43 +45,19 @@ function View() {
         <Typography variant="h4">Student Details</Typography>
       </Box>
       <TableContainer component={Paper}>
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
-            <TableRow style={{ backgroundColor: "#616161" }}>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                ID
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                Name
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{
-                  color: "white",
-                  fontWeight: "bold",
-                }}
-              >
-                Email
-              </TableCell>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Email</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell align="center">{student.id}</TableCell>
-              <TableCell align="center">{student.stuname}</TableCell>
-              <TableCell align="center">{student.email}</TableCell>
+              <TableCell>{student.id}</TableCell>
+              <TableCell>{student.stuname}</TableCell>
+              <TableCell>{student.email}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
