@@ -40,7 +40,7 @@ export default function Menu(props) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#home">Axelor POS</Navbar.Brand>
+          <Navbar.Brand href="#home">Grocery Basket</Navbar.Brand>
 
           <Nav className="me-auto" defaultActiveKey="All">
             {categories.map((cat) => {
