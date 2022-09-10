@@ -20,7 +20,7 @@ function App() {
       .then((data) => {
         setProducts(data);
       });
-  });
+  }, [setProducts]);
 
   function toCamelCase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
